@@ -91,7 +91,7 @@ public class JeuMain extends Application {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Go");
+                System.out.println("Go....");
             }
         });
     }
