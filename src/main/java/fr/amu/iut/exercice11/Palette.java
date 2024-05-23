@@ -1,11 +1,16 @@
 package fr.amu.iut.exercice1;
 
 import javafx.application.Application;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,9 +22,9 @@ import javafx.stage.Stage;
 @SuppressWarnings("Duplicates")
 public class Palette extends Application {
 
-    private int nbVert = 0;
-    private int nbRouge = 0;
-    private int nbBleu = 0;
+    private IntegerProperty nbVert = new SimpleIntegerProperty(0);
+    private IntegerProperty nbRouge = new SimpleIntegerProperty(0);
+    private IntegerProperty nbBleu = new SimpleIntegerProperty(0);
 
     private Label texteDuHaut;
 
@@ -42,6 +47,7 @@ public class Palette extends Application {
         texteDuHaut.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         BorderPane.setAlignment(texteDuHaut, Pos.CENTER);
 
+
         panneau = new Pane();
         panneau.setPrefSize(400, 200);
 
@@ -49,15 +55,39 @@ public class Palette extends Application {
         boutons = new HBox(10);
         boutons.setAlignment(Pos.CENTER);
         boutons.setPadding(new Insets(10, 5, 10, 5));
-        texteDuBas = new Label();
+        texteDuBas = new Label("Voici la couleur du rectangle");
         bas.setAlignment(Pos.CENTER_RIGHT);
         bas.getChildren().addAll(boutons, texteDuBas);
 
         vert = new Button("Vert");
         rouge = new Button("Rouge");
         bleu = new Button("Bleu");
-
         /* VOTRE CODE ICI */
+
+        vert.addEventHandler(MouseEvent.MOUSE_CLICKED, actionEvent -> {
+            panneau.setStyle("-fx-background-color: Green;");
+            nbVert.set(nbVert.get() + 1);
+            texteDuHaut.textProperty().bind(Bindings.format("Vert choisi %d fois", nbVert));
+            texteDuBas.setText("Le Vert est une jolie couleur !");
+            texteDuBas.setStyle("-fx-text-fill: green;");
+        });
+
+        rouge.addEventHandler(MouseEvent.MOUSE_CLICKED, actionEvent -> {
+            panneau.setStyle("-fx-background-color: Red;");
+            nbRouge.set(nbRouge.get() + 1);
+            texteDuHaut.textProperty().bind(Bindings.format("Rouge choisi %d fois", nbRouge));
+            texteDuBas.setText("Le Rouge est une jolie couleur !");
+            texteDuBas.setStyle("-fx-text-fill: red;");
+        });
+
+        bleu.addEventHandler(MouseEvent.MOUSE_CLICKED, actionEvent -> {
+            panneau.setStyle("-fx-background-color: Blue;");
+            nbBleu.set(nbBleu.get() + 1);
+            texteDuHaut.textProperty().bind(Bindings.format("Bleu choisi %d fois", nbBleu));
+            texteDuBas.setText("Le Bleu est une jolie couleur !");
+            texteDuBas.setStyle("-fx-text-fill: blue;");
+        });
+
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
@@ -71,4 +101,3 @@ public class Palette extends Application {
         primaryStage.show();
     }
 }
-
