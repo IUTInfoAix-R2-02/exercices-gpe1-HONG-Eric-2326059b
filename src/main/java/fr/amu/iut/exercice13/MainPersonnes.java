@@ -1,4 +1,4 @@
-package fr.amu.iut.exercice3;
+package fr.amu.iut.exercice13;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -14,10 +14,15 @@ public class MainPersonnes  {
     public static void main(String[] args) {
 
         lesPersonnes = FXCollections.observableArrayList();
+        unChangementListener = new ListChangeListener<Personne>() {
+            @Override
+            public void onChanged(Change<? extends Personne> change) {
+                System.out.println(lesPersonnes);
 
-//        unChangementListener = à completer
-
+            }
+        };
         lesPersonnes.addListener(unChangementListener);
+        question1();
     }
 
     public static void question1() {
